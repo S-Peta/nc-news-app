@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import CommentsProvider from "./CommentsProvider"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 
 export default function SingularArticle() {
@@ -24,6 +24,9 @@ export default function SingularArticle() {
   return (
     <>
       <div>
+        <Link to={'/'}>
+          <button>Back to all articles</button>
+        </Link>
         <h1>{article.title}</h1>
         <p>By {article.author}</p>
         <p>{new Date(article.created_at).toLocaleDateString()}</p>
