@@ -1,11 +1,11 @@
 import ArticleCard from "./ArticleCard";
 
-export default function ArticlesList({articles, onArticleClick}) {
+export default function ArticlesList({articles}) {
   return (
     <>
       <ul className="articles-list">
         {articles.map((article) => (
-          <ArticleCard key={article.article_id} article={article} onClick={() => onArticleClick(article.article_id)}/>
+          <ArticleCard key={article.article_id} article={article}/>
         ))}
       </ul>
     </>
