@@ -12,7 +12,6 @@
   margin: 10px 0;
   border-radius: 5px;
   background-color: #555555;
-
 }
 
 .article-card-header {
@@ -42,6 +41,49 @@
 }
 
 .article-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* comments temporary cards */
+
+.comment-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  background-color: #555555;
+}
+
+.comment-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-card-header .author {
+  font-weight: bold;
+}
+
+.comment-card-header .date {
+  color: white;
+}
+
+.comment-card-title {
+  margin: 10px 0;
+}
+
+.comment-card img {
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.comment-card-footer {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
