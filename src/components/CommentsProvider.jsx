@@ -8,17 +8,23 @@ export default function CommentsProvider({article_id}) {
   useEffect(() => {
     axios.get(`https://news-api-urho.onrender.com/api/articles/${article_id}/comments`)
       .then((response) => {
-        console.log(response, '<<< response');
-
         setComments(response.data.comments);
       });
   }, [article_id]);
+
+  function updateVotes(comment_id, newVotes) {
+    setComments((prevComments) =>
+      prevComments.map((comment) =>
+        comment.comment_id === comment_id ? { ...comment, votes: newVotes } : comment
+      )
+    )
+  }
 
   return (
     <>
       <ul className="articles-list">
         {comments.map((comment) => (
-          <CommentCard key={comment.comment_id} comment={comment}/>
+          <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes}/>
         ))}
       </ul>
     </>

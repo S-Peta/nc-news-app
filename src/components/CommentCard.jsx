@@ -1,4 +1,10 @@
-export default function CommentCard({ comment }) {
+import { useContext, useState } from "react";
+import VotesHandler from "./VotesHandler";
+import { UserContext } from "../contexts/User";
+
+export default function CommentCard({ comment, updateVotes }) {
+  const { setLoggedUser } = useContext(UserContext)
+
   return (
     <li className="comment-card">
       <div className="comment-card-header">
@@ -9,7 +15,8 @@ export default function CommentCard({ comment }) {
         <p>{comment.body}</p>
       </div>
       <div className="comment-card-footer">
-        <button>{comment.votes} Votes</button>
+        <VotesHandler comment={comment} updateVotes={updateVotes}/>
+        <p>{comment.votes} votes</p>
       </div>
     </li>
   );
