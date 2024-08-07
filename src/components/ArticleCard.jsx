@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function ArticleCard({ article }) {
   return (
     <div className="article-card">
-      <Link to={`/${article.article_id}`}>
+      <Link to={`/articles/${article.article_id}`}>
         <div className="article-card-header">
           <p className="author">{article.author}</p>
           <p className="date">{new Date(article.created_at).toLocaleDateString()}</p>

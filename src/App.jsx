@@ -8,6 +8,7 @@ import { useState } from 'react'
 import { UserContext } from './contexts/User'
 import UserProvider from './components/UserProvider'
 import NewCommentForm from './components/NewCommentForm'
+import TopicProvider from './components/TopicProvider';
 
 function App() {
   const [loggedUser, setLoggedUser] = useState({
@@ -22,12 +23,18 @@ function App() {
     <UserContext.Provider value={{ loggedUser, setLoggedUser, isLoggedIn}}>
       <>
         <Header/>
-        <Routes>
-          <Route path='/' element={<ArticlesProvider />}/>
-          <Route path='/:article_id' element={<SingularArticle />}/>
-          <Route path='/:article_id/comments' element={<NewCommentForm />}/>
-          <Route path='/users' element={<UserProvider />} />
-        </Routes>
+        <div className='main-container'>
+          <TopicProvider />
+          <div className='cards-box'>
+            <Routes>
+              <Route path='/' element={<ArticlesProvider />}/>
+              <Route path='/topics/:topic' element={<ArticlesProvider />}/>
+              <Route path='/articles/:article_id' element={<SingularArticle />}/>
+              <Route path='/articles/:article_id/comments' element={<NewCommentForm />}/>
+              <Route path='/users' element={<UserProvider />} />
+            </Routes>
+          </div>
+        </div>
       </>
     </UserContext.Provider>
   )
