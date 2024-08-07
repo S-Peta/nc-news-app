@@ -1,3 +1,4 @@
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import ArticlesProvider from './components/ArticlesProvider'
@@ -6,7 +7,7 @@ import SingularArticle from './components/SingularArticle'
 import { useState } from 'react'
 import { UserContext } from './contexts/User'
 import UserProvider from './components/UserProvider'
-import CommentForm from './components/CommentForm'
+import NewCommentForm from './components/NewCommentForm'
 
 function App() {
   const [loggedUser, setLoggedUser] = useState({
@@ -24,7 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<ArticlesProvider />}/>
           <Route path='/:article_id' element={<SingularArticle />}/>
-          <Route path='/:article_id/comments' element={<CommentForm />}/>
+          <Route path='/:article_id/comments' element={<NewCommentForm />}/>
           <Route path='/users' element={<UserProvider />} />
         </Routes>
       </>

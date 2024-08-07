@@ -32,13 +32,19 @@ export default function CommentsProvider({article_id}) {
     }
   }
 
+  function deletedComment(comment_id) {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== comment_id)
+    );
+  }
+
   return (
     <>
       <div>
         <button onClick={newCommentHandler}>Add comment</button>
         <ul className="articles-list">
           {comments.map((comment) => (
-            <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes}/>
+            <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes} deletedComment={deletedComment}/>
           ))}
         </ul>
       </div>

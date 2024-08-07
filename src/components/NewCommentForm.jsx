@@ -3,7 +3,7 @@ import { UserContext } from "../contexts/User"
 import axios from "axios"
 import { useNavigate, useParams } from "react-router-dom"
 
-export default function CommentForm() {
+export default function NewCommentForm() {
   const {loggedUser, isLoggedIn} = useContext(UserContext)
   const [newComment, setNewComment] = useState("")
   const {article_id} = useParams()
