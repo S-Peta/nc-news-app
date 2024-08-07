@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import VotesHandler from "./VotesHandler";
 import { UserContext } from "../contexts/User";
+import HandleDeleteComment from "./HandleDeleteComment";
 
-export default function CommentCard({ comment, updateVotes }) {
-  // const { setLoggedUser } = useContext(UserContext)
+export default function CommentCard({ comment, updateVotes, deletedComment }) {
+  const { loggedUser } = useContext(UserContext)
   const [votes, setVotes] = useState(comment.votes)
 
   useEffect(() => {
@@ -15,10 +16,10 @@ export default function CommentCard({ comment, updateVotes }) {
     updateVotes(comment_id, newVotes)
   }
 
-  console.log(votes);
   return (
     <li className="comment-card">
       <div className="comment-card-header">
+        {loggedUser.username === comment.author && <HandleDeleteComment comment={comment} deletedComment={deletedComment}/>}
         <p className="author">{comment.author}</p>
         <p className="date">{new Date(comment.created_at).toLocaleDateString()}</p>
       </div>
