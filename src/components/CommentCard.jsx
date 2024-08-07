@@ -1,10 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import VotesHandler from "./VotesHandler";
 import { UserContext } from "../contexts/User";
 
 export default function CommentCard({ comment, updateVotes }) {
-  const { setLoggedUser } = useContext(UserContext)
+  // const { setLoggedUser } = useContext(UserContext)
+  const [votes, setVotes] = useState(comment.votes)
 
+  useEffect(() => {
+    setVotes(comment.votes)
+  }, [comment.votes])
+
+  function handleUpdateVotes(comment_id, newVotes) {
+    setVotes(newVotes)
+    updateVotes(comment_id, newVotes)
+  }
+
+  console.log(votes);
   return (
     <li className="comment-card">
       <div className="comment-card-header">
@@ -15,9 +26,10 @@ export default function CommentCard({ comment, updateVotes }) {
         <p>{comment.body}</p>
       </div>
       <div className="comment-card-footer">
-        <VotesHandler comment={comment} updateVotes={updateVotes}/>
-        <p>{comment.votes} votes</p>
+        <VotesHandler comment={comment} updateVotes={handleUpdateVotes}/>
+        <p>{votes} votes</p>
       </div>
     </li>
   );
+
 }
