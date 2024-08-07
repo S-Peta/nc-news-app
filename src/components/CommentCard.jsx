@@ -32,5 +32,4 @@ export default function CommentCard({ comment, updateVotes, deletedComment }) {
       </div>
     </li>
   );
-
 }
