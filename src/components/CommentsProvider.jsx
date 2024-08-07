@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CommentCard from "./CommentCard"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/User"
 
 export default function CommentsProvider({article_id}) {
+  const {isLoggedIn} = useContext(UserContext)
   const [comments, setComments] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get(`https://news-api-urho.onrender.com/api/articles/${article_id}/comments`)
@@ -20,13 +24,24 @@ export default function CommentsProvider({article_id}) {
     )
   }
 
+  function newCommentHandler() {
+    if (isLoggedIn) {
+      navigate(`/${article_id}/comments`)
+    } else {
+      alert("Please login to add a new comment")
+    }
+  }
+
   return (
     <>
-      <ul className="articles-list">
-        {comments.map((comment) => (
-          <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes}/>
-        ))}
-      </ul>
+      <div>
+        <button onClick={newCommentHandler}>Add comment</button>
+        <ul className="articles-list">
+          {comments.map((comment) => (
+            <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes}/>
+          ))}
+        </ul>
+      </div>
     </>
   )
 }
