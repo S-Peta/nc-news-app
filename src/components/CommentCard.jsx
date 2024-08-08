@@ -5,10 +5,6 @@ import HandleDeleteComment from "./HandleDeleteComment";
 
 export default function CommentCard({ comment, setComments }) {
   const { loggedUser } = useContext(UserContext)
-  console.log(loggedUser.username, '<< logged');
-  console.log( comment.author, '<<< author');
-
-
 
   return (
     <li className="comment-card">

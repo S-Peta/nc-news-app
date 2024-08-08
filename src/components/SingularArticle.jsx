@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import CommentsProvider from "./CommentsProvider"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 
 export default function SingularArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState()
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -14,6 +15,9 @@ export default function SingularArticle() {
       .then((response) => {
         setArticle(response.data.article)
         setLoading(false)
+      }) .catch((err) => {
+        alert("Please chose a valid article")
+        navigate('/')
       })
   }, [article_id])
 
