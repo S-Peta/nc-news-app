@@ -1,7 +1,7 @@
 import axios from "axios"
 import { confirmAlert } from 'react-confirm-alert'
 
-export default function HandleDeleteComment({comment, deletedComment}) {
+export default function HandleDeleteComment({comment, setComments}) {
 
   function handleClick() {
     confirmAlert({
@@ -28,7 +28,12 @@ export default function HandleDeleteComment({comment, deletedComment}) {
       console.log(err);
       alert('Error deleting the comment')
     })
+  }
 
+  function deletedComment(comment_id) {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== comment_id)
+    );
   }
 
   return (
