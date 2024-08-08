@@ -10,6 +10,9 @@ export default function TopicProvider() {
     .then((response) => {
       setTopics(response.data.topics)
     })
+    .catch((err) => {
+      alert("Something went wrong! Please try again")
+    })
   }, [])
 
   return (

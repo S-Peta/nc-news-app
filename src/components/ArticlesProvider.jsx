@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
 import ArticlesList from "./ArticlesList";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import SortProvider from "./SortProvider";
 
 export default function ArticlesProvider() {
@@ -9,6 +9,7 @@ export default function ArticlesProvider() {
   const [loading, setLoading] = useState(true);
   const { topic } = useParams();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true)
@@ -21,12 +22,15 @@ export default function ArticlesProvider() {
       topic,
     }
 
-
     axios.get("https://news-api-urho.onrender.com/api/articles", {params})
       .then((response) => {
         setArticles(response.data.articles)
         setLoading(false)
-      });
+      })
+      .catch((err) => {
+        alert("Please chose a valid topic")
+        navigate('/')
+      })
   }, [topic, searchParams]);
 
   if (loading) {

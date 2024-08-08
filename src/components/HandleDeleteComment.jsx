@@ -25,7 +25,6 @@ export default function HandleDeleteComment({comment, setComments}) {
       alert('Comment deleted successfully!')
     })
     .catch((err) => {
-      console.log(err);
       alert('Error deleting the comment')
     })
   }

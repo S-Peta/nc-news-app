@@ -11,22 +11,33 @@ export default function NewCommentForm() {
 
   function changeCommentHandler(e) {
     setNewComment(e.target.value)
+    console.log(e.target.value);
+
   }
 
   function submitComment(e) {
-    if (isLoggedIn) {
-      e.preventDefault()
-      axios.post(`https://news-api-urho.onrender.com/api/articles/${article_id}/comments`, {
-        body: newComment,
-        author: loggedUser.username
-      })
-      .then(() => {
-        setNewComment("")
-        navigate(`/articles/${article_id}`)
-      })
-    } else {
+    e.preventDefault()
+
+    if(!isLoggedIn) {
       alert("Please login to vote")
+      return
     }
+
+    if(newComment.trim().length === 0) {
+      alert("Comment can not be empty")
+      return
+    }
+
+    axios.post(`https://news-api-urho.onrender.com/api/articles/${article_id}/comments`, {
+      body: newComment,
+      author: loggedUser.username
+    })
+    .then(() => {
+      setNewComment("")
+      navigate(`/articles/${article_id}`)
+    }).catch((err) => {
+      alert("Something went wrong! Please try again")
+    })
   }
 
   return (
