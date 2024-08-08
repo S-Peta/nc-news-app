@@ -3,34 +3,36 @@ import { UserContext } from "../contexts/User"
 import axios from "axios"
 import { FaArrowUp } from "react-icons/fa"
 
-export default function VotesHandler({ comment, updateVotes }) {
+export default function VotesHandler({ comment, setComments }) {
   const {isLoggedIn} = useContext(UserContext)
   const [hasVoted, setHasVoted] = useState(false)
 
   function incVotes() {
     if (isLoggedIn) {
       const newVotes = comment.votes + 1
-      updateVotes(comment.comment_id, newVotes)
+      updateCommentVotes(comment.comment_id, newVotes)
 
       setHasVoted(true)
 
       axios.patch(`https://news-api-urho.onrender.com/api/comments/${comment.comment_id}`, {inc_votes: 1})
 
-      .then((response) => {
-        const updatedVotes = response.data.votes
-        updateVotes(comment.comment_id, updatedVotes)
-      })
-
       .catch((err) => {
         console.log("errr", err);
         setHasVoted(false)
-        updateVotes(comment.comment_id, comment.votes)
-      })
-
-    } else {
-      alert("Please login to vote")
+        updateCommentVotes(comment.comment_id, comment.votes)
+        alert("Something went wrong")
+      })} else {
+        alert("Please login to vote")
+      }
     }
-  }
+    
+    function updateCommentVotes(comment_id, newVotes) {
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.comment_id === comment_id ? { ...comment, votes: newVotes } : comment
+        )
+      );
+    }
 
   return (
     <button onClick={incVotes} disabled={hasVoted}>

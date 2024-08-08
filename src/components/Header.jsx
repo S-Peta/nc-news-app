@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <>
       <div className="header-box">
-        <h1>Header</h1>
+        <Link to={'/'}>
+          <h1>Header</h1>
+        </Link>
       </div>
     </>
   )

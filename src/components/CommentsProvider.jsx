@@ -16,26 +16,12 @@ export default function CommentsProvider({article_id}) {
       });
   }, [article_id]);
 
-  function updateVotes(comment_id, newVotes) {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.comment_id === comment_id ? { ...comment, votes: newVotes } : comment
-      )
-    )
-  }
-
   function newCommentHandler() {
     if (isLoggedIn) {
-      navigate(`/${article_id}/comments`)
+      navigate(`/articles/${article_id}/comments`)
     } else {
       alert("Please login to add a new comment")
     }
-  }
-
-  function deletedComment(comment_id) {
-    setComments((prevComments) =>
-      prevComments.filter((comment) => comment.comment_id !== comment_id)
-    );
   }
 
   return (
@@ -44,7 +30,7 @@ export default function CommentsProvider({article_id}) {
         <button onClick={newCommentHandler}>Add comment</button>
         <ul className="articles-list">
           {comments.map((comment) => (
-            <CommentCard key={comment.comment_id} comment={comment} updateVotes={updateVotes} deletedComment={deletedComment}/>
+            <CommentCard key={comment.comment_id} comment={comment} setComments={setComments} />
           ))}
         </ul>
       </div>

@@ -20,9 +20,9 @@ export default function NewCommentForm() {
         body: newComment,
         author: loggedUser.username
       })
-      .then((response) => {
+      .then(() => {
         setNewComment("")
-        navigate(`/${article_id}`)
+        navigate(`/articles/${article_id}`)
       })
     } else {
       alert("Please login to vote")

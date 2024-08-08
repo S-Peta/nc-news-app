@@ -1,25 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import VotesHandler from "./VotesHandler";
 import { UserContext } from "../contexts/User";
 import HandleDeleteComment from "./HandleDeleteComment";
 
-export default function CommentCard({ comment, updateVotes, deletedComment }) {
+export default function CommentCard({ comment, setComments }) {
   const { loggedUser } = useContext(UserContext)
-  const [votes, setVotes] = useState(comment.votes)
+  console.log(loggedUser.username, '<< logged');
+  console.log( comment.author, '<<< author');
 
-  useEffect(() => {
-    setVotes(comment.votes)
-  }, [comment.votes])
 
-  function handleUpdateVotes(comment_id, newVotes) {
-    setVotes(newVotes)
-    updateVotes(comment_id, newVotes)
-  }
 
   return (
     <li className="comment-card">
       <div className="comment-card-header">
-        {loggedUser.username === comment.author && <HandleDeleteComment comment={comment} deletedComment={deletedComment}/>}
+        {loggedUser.username === comment.author && <HandleDeleteComment comment={comment} setComments={setComments}/>}
         <p className="author">{comment.author}</p>
         <p className="date">{new Date(comment.created_at).toLocaleDateString()}</p>
       </div>
@@ -27,8 +21,8 @@ export default function CommentCard({ comment, updateVotes, deletedComment }) {
         <p>{comment.body}</p>
       </div>
       <div className="comment-card-footer">
-        <VotesHandler comment={comment} updateVotes={handleUpdateVotes}/>
-        <p>{votes} votes</p>
+        <VotesHandler comment={comment} setComments={setComments}/>
+        <p>{comment.votes} votes</p>
       </div>
     </li>
   );
