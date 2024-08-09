@@ -26,9 +26,11 @@ export default function CommentsProvider({article_id}) {
 
   return (
     <>
-      <div>
-        <button onClick={newCommentHandler}>Add comment</button>
-        <ul className="articles-list">
+      <div className="add-comment-container">
+        <button className="button add-comment-btn" onClick={newCommentHandler}>Add comment</button>
+      </div>
+      <div className="comments-list">
+        <ul>
           {comments.map((comment) => (
             <CommentCard key={comment.comment_id} comment={comment} setComments={setComments} />
           ))}

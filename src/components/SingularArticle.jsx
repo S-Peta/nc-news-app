@@ -27,17 +27,21 @@ export default function SingularArticle() {
 
   return (
     <>
-      <div>
+      <div className="singular-article-container">
+        <div className="back-to-articles-container">
         <Link to={'/'}>
-          <button>Back to all articles</button>
+          <button className="button back-to-articles-btn"> Back to all articles</button>
         </Link>
-        <h1>{article.title}</h1>
-        <p>By {article.author}</p>
-        <p>{new Date(article.created_at).toLocaleDateString()}</p>
-        <img src={article.article_img_url} alt="" />
-        <p>{article.body}</p>
+        </div>
+        <div className="singular-article">
+          <h1>{article.title}</h1>
+          <p>By {article.author}</p>
+          <p>{new Date(article.created_at).toLocaleDateString()}</p>
+          <img src={article.article_img_url} alt="" />
+          <p>{article.body}</p>
+        </div>
+        <CommentsProvider article_id={article_id} />
       </div>
-      <CommentsProvider article_id={article_id} />
     </>
   );
 }
