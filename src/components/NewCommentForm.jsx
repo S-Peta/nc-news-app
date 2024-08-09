@@ -42,12 +42,14 @@ export default function NewCommentForm() {
 
   return (
     <>
-    <h2>New comment</h2>
-    <form onSubmit={submitComment}>
-      <label htmlFor="new-comment">Comment</label>
-        <input type="text" id="new-comment" value={newComment} onChange={changeCommentHandler} />
-        <button type="submit">Send</button>
-    </form>
+    <div className="new-comment-card">
+      <h2>New comment</h2>
+        <form onSubmit={submitComment} className="new-comment-form">
+          <label htmlFor="new-comment">Comment</label>
+          <textarea type="text" id="new-comment" value={newComment} onChange={changeCommentHandler} />
+          <button type="submit" className="submit-button">Send</button>
+      </form>
+    </div>
     </>
   )
 }
